@@ -1,0 +1,13 @@
+.navbar-light {
+    background-color:#D64C4A; 
+    height: 2%;
+    min-height: 40px;
+    width: 100%;
+   }
+
+.navbar {
+    color: black;
+    height: 2%;
+    min-height: 40px;
+    width: 100%;
+}
