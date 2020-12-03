@@ -1,14 +1,9 @@
 div {
-    height: 100%;
     width: 100%;
-    position: relative;
-    
-
 }
 
 h1 {
     position: absolute; 
     text-align: center;
     width: 100%;
-    opacity: 100%;
 }
