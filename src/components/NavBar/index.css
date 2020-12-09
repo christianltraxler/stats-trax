@@ -3,6 +3,8 @@
     height: 2%;
     min-height: 40px;
     width: 100%;
+    padding: 0;
+    margin: 0;
    }
 
 .navbar {
@@ -10,4 +12,19 @@
     height: 2%;
     min-height: 40px;
     width: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+@media all and (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu{ display: none; }
+	.navbar .nav-item:hover .nav-link{ background-color: #4495EE; height: 100%; }
+	.navbar .nav-item:hover .dropdown-menu{ display: block; width: 80%;}
+	.navbar .nav-item .dropdown-menu{ margin :0; }
+}	
+
+.navbar-brand {
+    padding: 0;
+    margin: 0;
 }

@@ -13,8 +13,7 @@ constructor(props) {
 /*
 TODO:
 Add calculation for top-crease height based on width (width/2)
-13.25, 25.75
-22.472 + 8px, 23.529 + 8px
+
 */ 
 render() {
     return (<div className="container">
