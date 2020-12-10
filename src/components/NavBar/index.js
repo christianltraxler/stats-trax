@@ -21,18 +21,14 @@ render() {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul className="navbar-nav">
-                        <li className="nav-item active">
-                            <Link className="nav-link" to={ROUTES.TEAMS}>Teams</Link>
-                        </li>
-                        <li className="nav-item active">
-                            <Link className="nav-link" to={ROUTES.PLAYERS}>Players</Link>
-                        </li>
                         <li className="nav-item dropdown position-static active" style={{backgroundColor: "#D64C4A"}}>
                             <Link className="nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-expanded="false" to={ROUTES.TEAMS}>Teams</Link>
                             <div className="dropdown-menu w-80" aria-labelledby="navbarDropdownMenuLink">
-                                {TeamsDropdown()}
+                                <TeamsDropdown/>
                             </div>
-                        
+                        </li>
+                        <li className="nav-item active">
+                            <Link className="nav-link" to={ROUTES.PLAYERS}>Players</Link>
                         </li>
                     </ul>
                 </div>
