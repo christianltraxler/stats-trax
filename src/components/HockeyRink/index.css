@@ -125,7 +125,7 @@ div.bottom-crease {
 
 .transparent-background {
     position: absolute;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0,0,0,0.8);
     top: 2.5%;
     right: 5%;
     height: 95%;
