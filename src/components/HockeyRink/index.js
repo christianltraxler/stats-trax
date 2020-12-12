@@ -4,17 +4,6 @@ import NavBar from '../NavBar';
 
 export default class HockeyRink extends Component {
 
-/*
-constructor(props) {
-    super(props)
-    }
-*/
-
-/*
-TODO:
-Add calculation for top-crease height based on width (width/2)
-
-*/ 
 render() {
     return (<div className="container">
                 <NavBar/>
@@ -63,8 +52,8 @@ render() {
                             <hr className="horizontal-line" style={{backgroundColor: "#4495EE", bottom: "36%"}}></hr>
                         </div>            
                     </div>
-                    <NavBar/>
                 </div>
+                <NavBar/>
             </div>)
     }
 }
