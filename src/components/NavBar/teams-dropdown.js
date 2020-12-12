@@ -3,32 +3,31 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import './index.css';
 
+import {
+    getTeamsData
+} from '../../functions';
+
 class TeamsDropdown extends Component {
 
     constructor(props)
     {
-      super(props);
-      this.state={ data: [] };
+        super(props);
+        this.state={ 
+            teams: [] 
+        };
     }
 
     componentDidMount() {
-        this.getTeamsData();
+        getTeamsData().then(data => { 
+            this.setState({teams: data}); 
+        });
     }
 
-    getTeamsData = () => {
-        fetch('https://us-central1-stats-trax.cloudfunctions.net/app/teams')
-        .then(response => {
-            response.json().then((teams) => {
-                this.setState({ data: teams }); 
-            })
-        })
-    };
-
-    getTeamsDivision(nhlDivision)
+    getDivisionTeams(nhlDivision)
     {
         var divisionTeams = [];
-        for (var index in this.state.data) {
-            var team = this.state.data[index];
+        for (var index in this.state.teams) {
+            var team = this.state.teams[index];
             if(team['division']['name'] === nhlDivision) {
                 divisionTeams.push(
                     <Link className="dropdown-item" href="/" key={team['id']} to={'/teams/' + team['abbreviation']}>
@@ -45,22 +44,22 @@ class TeamsDropdown extends Component {
                     <div className="col">
                         <a className="dropdown-item text-center disabled" href="/">Pacific</a>
                         <div className="dropdown-divider"></div>
-                        {this.getTeamsDivision("Pacific")}
+                        {this.getDivisionTeams("Pacific")}
                     </div>
                     <div className="col">
                         <a className="dropdown-item text-center disabled" href="/">Central</a>
                         <div className="dropdown-divider"></div>
-                        {this.getTeamsDivision("Central")}
+                        {this.getDivisionTeams("Central")}
                     </div>
                     <div className="col">
                         <a className="dropdown-item text-center disabled" href="/">Metropolitan</a>
                         <div className="dropdown-divider"></div>
-                        {this.getTeamsDivision("Metropolitan")}
+                        {this.getDivisionTeams("Metropolitan")}
                     </div>
                     <div className="col">
                         <a className="dropdown-item text-center disabled" href="/">Atlantic</a>
                         <div className="dropdown-divider"></div>
-                        {this.getTeamsDivision("Atlantic")}
+                        {this.getDivisionTeams("Atlantic")}
                     </div>
                 </div>)
     }

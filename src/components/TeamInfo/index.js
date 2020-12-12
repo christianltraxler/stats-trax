@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
  
+import {
+    getTeamsData,
+    getTeam
+} from '../../functions';
 
 class TeamInfo extends Component {
 
@@ -7,27 +11,24 @@ class TeamInfo extends Component {
     {
         super(props);
         this.state={ 
-            data: []
+            teams: [],
+            team: {},
+            players: {}
         };
     }
 
     componentDidMount() {
-        this.getTeamsData();
+        getTeamsData().then(data => { 
+            this.setState({teams: data}); 
+        });
+        this.setState({ team: getTeam(this.state.teams, this.props.location.pathname)});
     }
 
-    getTeamsData = () => {
-        fetch('https://us-central1-stats-trax.cloudfunctions.net/app/teams')
-        .then(response => {
-            response.json().then((teams) => {
-                this.setState({ data: teams }); 
-            })
-        })
-    };
 
     getTeamInfo = () => {
-        for(var index in this.state.data) {
-            if(this.props.location.pathname.includes(this.state.data[index]['abbreviation'])) {
-                var team = this.state.data[index];
+        for(var index in this.state.teams) {
+            if(this.props.location.pathname.includes(this.state.teams[index]['abbreviation'])) {
+                var team = this.state.teams[index];
                 return(<>
                 <div className="col-3" style={{height:"80%", width:"80%"}}>
                     <a href="/"><img src={team['logo']['link']} alt={team['abbreviation']}/></a>
@@ -47,9 +48,9 @@ class TeamInfo extends Component {
     };
 
     getTeamRosterTable = (team) => {
-        for(var index in this.state.data) {
-            if(this.props.location.pathname.includes(this.state.data[index]['abbreviation'])) {
-                var teamRoster = this.state.data[index]['roster'];
+        for(var index in this.state.teams) {
+            if(this.props.location.pathname.includes(this.state.teams[index]['abbreviation'])) {
+                var teamRoster = this.state.teams[index]['roster'];
                 
                 var roster = [];
                 for(var playerId in teamRoster['20202021'])
