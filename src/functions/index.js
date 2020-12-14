@@ -1,9 +1,9 @@
 // Function to get the basic data on all the active teams
-export function getTeamsData() {
-    // Get the json data or all the teams from the api
-    let response = fetch('https://us-central1-stats-trax.cloudfunctions.net/app/teams');
+export async function getTeamsData() {
+    // Get the json data for all the teams from the api
+    let response = await fetch('https://us-central1-stats-trax.cloudfunctions.net/app/teams');
     // Convert the data to json
-    let teamsData = response.then(response => response.json());
+    let teamsData = await response.json();
     // teamsData remains a promise with json data embeded
     // teamsData needs to accessed with a .then() to work with data
     // Return the Promise
@@ -21,3 +21,15 @@ export function getTeam(teams, path) {
         }
     }
 };
+
+// Function to get the current players on the specified team
+export async function getTeamCurrentPlayers(team) {
+    // Get the json data for the players from team specified from the api
+    let response = await fetch('https://us-central1-stats-trax.cloudfunctions.net/app/players?teamId=' + team['id']);
+    // Convert the data to json
+    let playerData = await response.json();
+    // playerData remains a promise with json data embeded
+    // playerData needs to accessed with a .then() to work with data
+    // Return the Promise
+    return playerData;
+}
