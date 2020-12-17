@@ -8,6 +8,7 @@ import HomePage from '../Home';
 import TeamsPage from '../Teams';
 import PlayersPage from '../Players';
 import TeamInfoPage from '../TeamInfo';
+import PlayerInfoPage from '../PlayerInfo';
 
 import HockeyRink from '../HockeyRink/index.js';
  
@@ -20,8 +21,9 @@ const App = () => (
       <HockeyRink>  
         <Route exact path={ROUTES.DEFAULT} component={HomePage} />
         <Route exact path={ROUTES.TEAMS} component={TeamsPage} />
-        <Route path={ROUTES.PLAYERS} component={PlayersPage} />
+        <Route exact path={ROUTES.PLAYERS} component={PlayersPage} />
         <Route path={ROUTES.TEAM_INFO} component={TeamInfoPage} />
+        <Route path={ROUTES.PLAYER_INFO} component={PlayerInfoPage} />
       </HockeyRink> 
     </div>
   </Router>

@@ -1,0 +1,16 @@
+p.teams {
+    color:white;
+    font-size: 36px;
+}
+
+div.row p.teams {
+    text-align: center;
+}
+div.col p.teams {
+    text-align: left;
+}
+
+.dropdown-item.teams-link {
+    color: white;
+    font-size: 24px;
+}
