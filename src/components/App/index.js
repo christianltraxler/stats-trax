@@ -19,11 +19,11 @@ const App = () => (
   <Router>
     <div>
       <HockeyRink>  
+        <Route path={ROUTES.TEAM_INFO} component={TeamInfoPage} />
+        <Route path={ROUTES.PLAYER_INFO} component={PlayerInfoPage} />
         <Route exact path={ROUTES.DEFAULT} component={HomePage} />
         <Route exact path={ROUTES.TEAMS} component={TeamsPage} />
         <Route exact path={ROUTES.PLAYERS} component={PlayersPage} />
-        <Route path={ROUTES.TEAM_INFO} component={TeamInfoPage} />
-        <Route path={ROUTES.PLAYER_INFO} component={PlayerInfoPage} />
       </HockeyRink> 
     </div>
   </Router>

@@ -4,7 +4,7 @@ import {
     getPlayerData
 } from '../../functions';
 
-class TeamInfo extends Component {
+class PlayerInfoPage extends Component {
 
     constructor(props)
     {
@@ -27,7 +27,7 @@ class TeamInfo extends Component {
             var player = state.player[0];
             // Return the team info section
             return(<>
-                <div className="col-3" style={{height:"80%", width:"80%", background:"red"}}>
+                <div className="col-3" style={{height:"80%", width:"80%"}}>
                     <a href="/"><img src={player['picture']['link']} alt={player['fullName']}/></a>
                 </div>
                 <div className="col-5">
@@ -70,4 +70,4 @@ class TeamInfo extends Component {
                 </div>)}
 }
 
-export default TeamInfo;
+export default PlayerInfoPage;

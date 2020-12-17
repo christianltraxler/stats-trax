@@ -7,7 +7,7 @@ import {
     getTeamCurrentPlayers
 } from '../../functions';
 
-class TeamInfo extends Component {
+class TeamInfoPage extends Component {
 
     constructor(props)
     {
@@ -112,4 +112,4 @@ class TeamInfo extends Component {
                 </div>)}
 }
 
-export default TeamInfo;
+export default TeamInfoPage;
