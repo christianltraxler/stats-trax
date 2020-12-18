@@ -1,11 +1,13 @@
 /* eslint-disable */
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
  
 import {
     getTeamsData,
     getTeam,
     getTeamCurrentPlayers
 } from '../../functions';
+import './index.css';
 
 class TeamInfoPage extends Component {
 
@@ -46,8 +48,8 @@ class TeamInfoPage extends Component {
             var team = state.team;
             // Return the team info section
             return(<>
-                <div className="col-3" style={{height:"80%", width:"80%"}}>
-                    <a href="/"><img src={team['logo']['link']} alt={team['abbreviation']}/></a>
+                <div className="col-3">
+                    <a href="/"><img className="team-logo" src={team['logo']['link']} alt={team['abbreviation']}/></a>
                 </div>
                     <div className="col-9">
                     <h2>{team['name']}</h2>
@@ -67,18 +69,22 @@ class TeamInfoPage extends Component {
         if (state.players !== undefined) {
             var playerList = [];
             var players = state.players;
-
             // Iterate through the players
             for (var playerId in players) {
                 // Add the player info to the array
                 playerList.push(<>
                     <tr key={parseInt(playerId)}>
-                        <td>{players[playerId]['primaryNumber']}</td>
-                        <td>{players[playerId]['name']['fullName']}</td>
-                        <td>{players[playerId]['primaryPosition']['abbreviation']}</td>
-                        <td>{players[playerId]['shootsCatches']}</td>
-                        <td>{players[playerId]['height']}</td>
-                        <td>{players[playerId]['weight']}</td>
+                        <td className="text-center">{players[playerId]['primaryNumber']}</td>
+                        <td>
+                            <Link href="/" key={state.team['id']} to={'/players/' + players[playerId]['id']}>
+                                <img className="player-image" src={players[playerId]['picture']['link']} alt=""></img>
+                                {players[playerId]['name']['fullName']} 
+                            </Link>
+                        </td>
+                        <td className="text-center">{players[playerId]['primaryPosition']['abbreviation']}</td>
+                        <td className="text-center">{players[playerId]['shootsCatches']}</td>
+                        <td className="text-center">{players[playerId]['height']}</td>
+                        <td className="text-center">{players[playerId]['weight']}</td>
                     </tr>
                 </>);
             }
@@ -91,17 +97,17 @@ class TeamInfoPage extends Component {
 
     render() {
         return (<div style={{height: "100%", padding: "0px 0px 5% 0px"}}>
-                    <div className="row" style={{padding:"5% 0% 0% 0%", margin:"0%"}}>{this.getTeamInfo(this.state)}</div>
-                    <div className="row" style={{padding:"2.5% 2.5% 0% 2.5%", margin:"0%"}}>
+                    <div className="row" style={{padding:"5% 0% 0% 0%"}}>{this.getTeamInfo(this.state)}</div>
+                    <div className="row" style={{padding:"2.5% 2.5% 0% 2.5%"}}>
                         <table className="table-sm table-dark table-hover">
                             <thead>
                                 <tr>
-                                    <th>Number</th>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Shoots/Catches</th>
-                                    <th>Height</th>
-                                    <th>Weight</th>
+                                    <th className="text-center">Number</th>
+                                    <th className="text-center">Name</th>
+                                    <th className="text-center">Position</th>
+                                    <th className="text-center">Shoots/Catches</th>
+                                    <th className="text-center">Height</th>
+                                    <th className="text-center">Weight</th>
                                 </tr>
                             </thead>
                             <tbody>
