@@ -6,4 +6,11 @@ h1 {
     position: absolute; 
     text-align: center;
     width: 100%;
+    font-size: 150px;
 }
+
+/* Solid border */
+hr.solid {
+    border-top: 5px solid white;
+    width: 96%;
+  }

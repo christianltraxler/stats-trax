@@ -74,7 +74,7 @@ class TeamInfoPage extends Component {
                 // Add the player info to the array
                 playerList.push(<>
                     <tr key={parseInt(playerId)}>
-                        <td className="text-center">{players[playerId]['primaryNumber']}</td>
+                        <td className="text-center">{players[playerId]['jerseyNumber']}</td>
                         <td>
                             <Link href="/" key={state.team['id']} to={'/players/' + players[playerId]['id']}>
                                 <img className="player-image" src={players[playerId]['picture']['link']} alt=""></img>

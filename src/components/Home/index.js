@@ -1,13 +1,17 @@
-import React from 'react';
+import React, {Component} from 'react';
 import "./index.css"
- 
-const HomePage = () => (
-    <div>
-        <h1>
-            Sample Text
-        </h1>
-    </div>
 
-);
+class HomePage extends Component {
 
-export default HomePage
+    render() {
+        return (<div style={{height: "100%", padding: "0px 0px 5% 0px"}}>
+                    <div className="row" style={{height: "175px"}}> 
+                        <h1> Stats Trax </h1>
+                    </div>
+                    <div className="row">
+                        <hr className="solid" ></hr>
+                    </div>
+                </div>)}
+}
+
+export default HomePage;
