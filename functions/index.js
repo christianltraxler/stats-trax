@@ -44,7 +44,7 @@ async function getPlayersData(query, callBack){
     db.db('stats_trax').collection('players', (err, collection) => {
       if(err) throw err;    
       // Get the players that match the query, and sort the results
-      collection.find(query).toArray((err, items) => {
+      collection.find(query).sort({'name.lastName': 1}).toArray((err, items) => {
         if(err) throw err;    
         return(callBack(items));
       });
@@ -87,7 +87,8 @@ app.get('/players', (req, res) => {
   }
   // For query teamId;
   if (typeof req.query.startsWith != 'undefined') {
-    query['name.lastName'] = `$regex: ^${req.query.startsWidth}`;
+    console.log(req.query.startsWith)
+    query['name.lastName'] = { $regex: `^${req.query.startsWith}` };
   }
   
   // Fetch the players data from MongoDB
