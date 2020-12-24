@@ -45,3 +45,15 @@ export async function getPlayerData(playerId) {
     // Return the Promise
     return playerData;
 }
+
+// Function to get the players based on a query
+export async function getPlayersData(query) {
+    // Get the json data for the player based on the query from the api
+    let response = await fetch('https://us-central1-stats-trax.cloudfunctions.net/app/players?' + query);
+    // Convert the data to json
+    let playersData = await response.json();
+    // playerData remains a promise with json data embeded
+    // playerData needs to accessed with a .then() to work with data
+    // Return the Promise
+    return playersData;
+}

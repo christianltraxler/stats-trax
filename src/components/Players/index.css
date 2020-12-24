@@ -2,16 +2,21 @@ div {
     width: 100%;
 }
 
-h1.site-title {
+h1 {
     position: absolute; 
     text-align: center;
     width: 100%;
-    font-size: 150px;
+    font-size: 80px;
 }
 
 /* Solid border */
 hr.solid {
     border-top: 5px solid white;
-    width: 96%; 
-    text-align: center !important;
+    width: 96%;
   }
+
+.btn {
+    padding: 5px 10px;
+    background: #D64C4A;
+    border: white;
+}

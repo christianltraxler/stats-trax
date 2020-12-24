@@ -85,6 +85,10 @@ app.get('/players', (req, res) => {
   if (typeof req.query.teamId != 'undefined') {
     query['currentTeam.id'] = parseInt(req.query.teamId);
   }
+  // For query teamId;
+  if (typeof req.query.startsWith != 'undefined') {
+    query['name.lastName'] = `$regex: ^${req.query.startsWidth}`;
+  }
   
   // Fetch the players data from MongoDB
   getPlayersData(query, function(result) {
