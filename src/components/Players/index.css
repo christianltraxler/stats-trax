@@ -20,3 +20,20 @@ hr.solid {
     background: #D64C4A;
     border: white;
 }
+
+input.active.mr-2 {
+    background: #4495EE !important;
+}
+
+table.center {
+    margin-left:auto; 
+    margin-right:auto;
+  }
+
+a.player-link {
+    color: white;
+}
+
+a.player-link:hover {
+    color: #4495EE;
+}
