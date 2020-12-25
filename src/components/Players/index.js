@@ -14,23 +14,28 @@ class PlayersPage extends Component {
         super(props);
         this.state={ 
             players: [],
-            isActive: "A"
+            isActive: "A",
+            playersArray: []
         };
     }
 
-    componentDidMount() {
-        getPlayersData(`startsWith=${this.state.isActive}`).then(data => { 
+    async componentDidMount() {
+        await getPlayersData(`startsWith=${this.state.isActive}`).then(data => { 
             this.setState({players: data}); 
         });
     }
 
-    updateActive = (value) => {
-        this.setState({isActive: value});
-        getPlayersData(`startsWith=${this.state.isActive}`).then(data => { 
-            this.setState({players: data}); 
-            this.forceUpdate();
-        });
+    async componentDidUpdate() {
+        if (this.state.playersArray.length !== this.getPlayersArray().length) {
+            this.setState({playersArray: this.getPlayersArray()});
+        }
+    }
 
+    async updateActive(value) {
+        this.setState({isActive: value});
+        await getPlayersData(`startsWith=${value}`).then(data => { 
+            this.setState({players: data}); 
+        });
     }
 
     getLetterLinks = () => {
@@ -45,27 +50,40 @@ class PlayersPage extends Component {
         return letterLinks;
     }
 
-    getPlayers = (state, number) => {
-        var playersArray = [];
-        var players = state.players;
-        for (var index in state.players) {
-            if (index % 4 === number) {
-                playersArray.push(<>
-                    <tr key={parseInt(players[index]['id'])}>
-                            <td className="text-center">{players[index]['jerseyNumber']}</td>
-                            <td>
-                                <Link className="player-link" href="/" to={'/players/' + players[index]['id']}>
-                                    <img className="player-image" src={players[index]['picture']['link']} alt=""></img>
-                                    {players[index]['name']['fullName']} 
-                                </Link>
-                            </td>
-                            <td className="text-center">{players[index]['primaryPosition']['abbreviation']}</td>
-                            <td className="text-center">{players[index]['shootsCatches']}</td>
-                        </tr>
-                </>);
+    getPlayersArray = () => {
+        if (this.state.players !== undefined) {
+            var playersArray = [];
+            var players = this.state.players;
+            for (var index in this.state.players) {
+                    playersArray.push(<>
+                        <tr key={parseInt(players[index]['id'])}>
+                                <td className="text-center">{players[index]['jerseyNumber']}</td>
+                                <td>
+                                    <Link className="player-link" href="/" to={'/players/' + players[index]['id']}>
+                                        <img className="player-image" src={players[index]['picture']['link']} alt=""></img>
+                                        {players[index]['name']['fullName']} 
+                                    </Link>
+                                </td>
+                                <td className="text-center">{players[index]['primaryPosition']['abbreviation']}</td>
+                                <td className="text-center">{players[index]['shootsCatches']}</td>
+                            </tr>
+                    </>);
             }
         }
         return(playersArray);
+    }
+
+    getPlayersTables = (state, number) => {
+        if (state.playersArray.length !== 0) {
+            var playersArray = state.playersArray;
+            var newArray = [];
+            for (var index in playersArray) {
+                if (index % 4 === number) {
+                    newArray.push(playersArray[index]);
+                }
+            }
+            return (newArray);
+        }
     }
 
     render() {
@@ -79,32 +97,32 @@ class PlayersPage extends Component {
                             {this.getLetterLinks()}
                         </div>
                     </div>
-                    <div className="row" style={{height: "800px"}}>
+                    <div className="row" style={{minHeight: "800px"}}>
                         <div className="col-3">
                             <table className="table-sm table-dark table-hover center">
                                 <tbody>
-                                    {this.getPlayers(this.state, 0)}
+                                    {this.getPlayersTables(this.state, 0)}
                                 </tbody>
                             </table>
                         </div>
                         <div className="col-3 justify-center">
                             <table className="table-sm table-dark table-hover center">
                                 <tbody>
-                                    {this.getPlayers(this.state, 1)}
+                                    {this.getPlayersTables(this.state, 1)}
                                 </tbody>
                             </table>
                         </div>
                         <div className="col-3 justify-center">
                             <table className="table-sm table-dark table-hover center">
                                 <tbody>
-                                    {this.getPlayers(this.state, 2)}
+                                    {this.getPlayersTables(this.state, 2)}
                                 </tbody>
                             </table>
                         </div>
                         <div className="col-3 justify-center">
                             <table className="table-sm table-dark table-hover center">
                                 <tbody>
-                                    {this.getPlayers(this.state, 3)}
+                                    {this.getPlayersTables(this.state, 3)}
                                 </tbody>
                             </table>
                         </div>

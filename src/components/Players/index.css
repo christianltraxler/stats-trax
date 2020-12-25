@@ -37,3 +37,7 @@ a.player-link {
 a.player-link:hover {
     color: #4495EE;
 }
+
+td {
+    white-space: nowrap;
+}

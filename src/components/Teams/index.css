@@ -14,3 +14,7 @@ div.col p.teams {
     color: white;
     font-size: 24px;
 }
+
+.dropdown-item.teams-link:hover {
+    color: black;
+}
