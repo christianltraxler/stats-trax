@@ -12,17 +12,23 @@ class TeamInfoTable extends Component {
         super(props);
         this.state = { 
             tableType: "R",
-            tableYear: "20202021",
+            tableSeason: "20202021",
             roster: {}
         };
     }
 
     componentDidUpdate = async () => {
-        console.log(this.state.tableYear)
-        var rosterQuery = [...Object.keys(this.props.team['roster'][this.state.tableYear])].join();
-        await getPlayersDataByIds(rosterQuery).then(data => 
-            this.setState({ roster: data })
-        );
+        // If this.props.team is not undefined 
+        if (Object.keys(this.props.team).length !== 0) {
+            // Get the players in form of string (comma separated)
+            var rosterPlayerIds = [...Object.keys(this.props.team['roster'][this.state.tableSeason])].join();
+            // Get the roster data
+            await getPlayersDataByIds(rosterPlayerIds).then(data => {
+                if (this.state.roster !== data) {
+                    this.setState({ roster: data })
+                }
+            });
+        }
     }
 
     getTeamRosterTable = () => {
@@ -57,6 +63,8 @@ class TeamInfoTable extends Component {
     };
 
     getYears = (type) => {
+        // Get the table type based on the type specified
+        // roster => R, schedule => S, teamStats => T
         var tableType = type.slice(0,1).toUpperCase();
 
         // Continue if this.state.team is defined
@@ -76,13 +84,15 @@ class TeamInfoTable extends Component {
     }
 
     setTeamInfoTable = (value) => {
+        // Based on the button clicked, set the tableType and tableSeason
         this.setState({ 
             tableType: value.slice(0,1),
-            tableSeason: value.slice(1,10)
+            tableSeason: value.slice(1,9)
          });
     }
 
     getTeamStatsTable = (season) => {
+        // If this.props.team is defined
         if (this.props.team !== undefined) {
             var team = this.props.team['teamStats'][season]['numbers'];
             return (<>
@@ -115,7 +125,8 @@ class TeamInfoTable extends Component {
     } 
 
     getTeamInfoTable = (state) => {
-        if (state.tableType === "R") {
+        // If the tableType = R (roster table is chosen)
+        if (this.state.tableType === "R") {
             return (<>
                 <table className="table-sm table-dark table-hover">
                     <thead>
@@ -129,13 +140,19 @@ class TeamInfoTable extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.getTeamRosterTable(this.state, this.props)}
+                        {this.getTeamRosterTable()}
                     </tbody>
                 </table>
             </>);
-        } else if (state.tableType === "S") {
-
-        } else if (state.tableType === "T") {
+        
+        } 
+        // If the tableType = S (schedule table is chosen)
+        // Schedule info needs to be added to MongoDB + API
+        else if (this.state.tableType === "S") {
+        
+        } 
+        // If the tableType = T (team stats table is chosen)
+        else if (this.state.tableType === "T") {
             return (<>
                 <table className="table-sm table-dark table-hover">
                     <thead>
