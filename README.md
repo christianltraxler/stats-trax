@@ -1,70 +1,76 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Stats Trax
+Stats Trax is a sports (currently only hockey) website built by Christian Traxler to display various information about games, teams, and players. 
 
-## Available Scripts
+General TODOs:
+Fix formatting for mobile
+Fix website background design to account for longer pages
+Add loading spinner for wait while page loads
 
-In the project directory, you can run:
+## Sections
+### Home 
+Standard welcome page for the website 
 
-### `npm start`
+TODO:
+Add all teams in alphabetical list on left sidebar 
+Add popular(?) players on right sidebar
+Add recent/upcoming games in middle
+Add/create logo(?) for website
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Teams
+[/teams](https://stats-trax.web.app/teams)  
+Broken down by Conference and Division, displays links to each teams site
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+TODO:
+Fix formatting/design of conferences/division (looks bad)
+Fix team link sizes (a bit tall + too wide)
 
-### `npm test`
+[/teams/:abbreviation](https://stats-trax.web.app/teams/TOR)
+Contains information about the team
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Players
+#### [/players](https://stats-trax.web.app/players)
+Directory of players broken down by first letter of last name. 
 
-### `npm run build`
+TODO: 
+Add multiple pages for each letter (add player limit for single page)
+Fix load time
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### [/players/:id](https://stats-trax.web.app/players/8479318)
+Information about the player specified  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+TODO: 
+Fix player number (always undefined)
+Fix formatting of basic player information at the top
+Add more information about the player
+Add player stats over the years
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Games 
+Currently not implemented
 
-### `npm run eject`
+TODO:
+Add game information (teams, arena, etc...)
+Add player box score
+Add team stats comparison
+Add shot charts for game (from shot charts page)
+Add line charts for game (from line charts page)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Shot Charts
+Currently not implemented 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+TODO
+Add chart to incorporate all shots
+Filter by player(s) (for + against), team(s), all
+Filter by shot type (goal, shot, missed, blocked)
+Filter by shot distance
+Filter by shot angle
+Upload csv data to be displayed 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Line Charts
+Currently not implemented 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+TODO
+Add chart to incorporate lines based on the game 
+Filter by game
+Colour parts with PP, PK, 4v4, and EN
+Determine the lines (5v5, 4v4, PP, PK, EN) based on the common playing time
