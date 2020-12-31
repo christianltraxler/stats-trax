@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
  
 import {
-    getPlayerData
+    getPlayerDataById
 } from '../../functions';
 
 class PlayerInfoPage extends Component {
@@ -16,7 +16,7 @@ class PlayerInfoPage extends Component {
 
     async componentDidMount() {
         // Set the initial state for the teams and team
-        await getPlayerData(this.props.location.pathname.slice(-7)).then(data => { 
+        await getPlayerDataById(this.props.location.pathname.slice(-7)).then(data => { 
             this.setState({player: data}); 
         });
     };

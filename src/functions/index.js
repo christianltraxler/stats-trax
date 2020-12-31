@@ -35,15 +35,13 @@ export async function getTeamCurrentPlayers(team) {
 }
 
 // Function to get the players based on the specified id
-export async function getPlayerData(playerId) {
-    // Get the json data for the player from player id from the api
-    let response = await fetch('https://us-central1-stats-trax.cloudfunctions.net/app/players?playerId=' + playerId);
-    // Convert the data to json
-    let playerData = await response.json();
-    // playerData remains a promise with json data embeded
-    // playerData needs to accessed with a .then() to work with data
-    // Return the Promise
-    return playerData;
+export async function getPlayerDataById(playerId) {
+    return (getPlayersData("playerId=" + playerId));
+}
+
+// Function to get the players based on the specified id
+export async function getPlayersDataByIds(playerIds) {
+    return (getPlayersData("playerIds=" + playerIds));
 }
 
 // Function to get the players based on a query

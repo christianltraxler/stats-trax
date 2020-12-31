@@ -7,12 +7,6 @@ import * as ROUTES from '../../constants/routes';
 
 export default class NavBar extends Component {
 
-    /*
-constructor(props) {
-    super(props)
-    }
-    */
-
 render() {
     return (<nav className="navbar navbar-expand-lg navbar-light sticky-top">
                 <Link className="navbar-brand active" href="" style={{color:"black", fontSize: "24px", paddingLeft: "15px", paddingRight: "15px"}} to={ROUTES.DEFAULT}>Stats Trax</Link>
