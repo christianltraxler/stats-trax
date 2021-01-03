@@ -15,3 +15,36 @@ hr.solid {
     width: 96%; 
     text-align: center !important;
   }
+
+.dropdown-item.teams-list-link {
+    height: 40px;
+    font-size: 23px;
+    color: white;
+}
+
+.dropdown-item.teams-list-link:hover {
+    color: black;
+}
+
+.col-3.left {
+    border-right: 4px solid white;
+}
+
+.col-3.right {
+    border-left: 4px solid white;
+}
+
+.dropdown-item.player-list-link {
+    height: calc(40px * 31 / 20);
+    font-size: 25px;
+    color: white;
+}
+
+.dropdown-item.player-list-link:hover {
+    color: black;
+}
+
+.player-list-link img {
+    border-radius: 50%;
+    border: 2px solid white;
+}

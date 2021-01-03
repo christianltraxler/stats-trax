@@ -6,6 +6,7 @@ General TODOs:
 Fix formatting for mobile
 Fix website background design to account for longer pages
 Add loading spinner for wait while page loads
+Add mini popup on stat table columns to explain the meaning of each stat
 
 ## Sections
 ### Home 
