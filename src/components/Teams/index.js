@@ -3,32 +3,20 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import './index.css';
 
-import {
-    getTeamsData
-} from '../../functions';
 import Spinner from '../Spinner';
+import { connect } from 'react-redux';
 
-class TeamsPage extends Component {
+const mapStateToProps = state => {
+    return { teams: state.teams };
+};
 
-    constructor(props)
-    {
-        super(props);
-        this.state={ 
-            teams: [] 
-        };
-    }
-
-    componentDidMount() {
-        getTeamsData().then(data => { 
-            this.setState({teams: data}); 
-        });
-    }
+class TeamsPageComponent extends Component {
 
     getDivisionTeams(nhlDivision)
     {
         var divisionTeams = [];
-        for (var index in this.state.teams) {
-            var team = this.state.teams[index];
+        for (var index in this.props.teams) {
+            var team = this.props.teams[index];
             if(team['division']['name'] === nhlDivision) {
                 divisionTeams.push(
                     <Link className="dropdown-item teams-link" href="/" key={team['id']} to={'/teams/' + team['abbreviation']}>
@@ -82,4 +70,5 @@ class TeamsPage extends Component {
     }
 }
 
+const TeamsPage = connect(mapStateToProps)(TeamsPageComponent);
 export default TeamsPage;

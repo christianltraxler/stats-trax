@@ -1,37 +1,29 @@
 /* eslint-disable */
 import React, {Component} from 'react';
-//import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
  
-import {
-    getTeamsData,
-    getTeam
-} from '../../functions';
+import { getTeam } from '../../functions';
 import './index.css';
 import TeamInfoTable from './TeamInfoTable';
 import Spinner from '../Spinner';
 
-class TeamInfoPage extends Component {
+const mapStateToProps = state => {
+    return { teams: state.teams };
+  };
+
+class TeamInfoPageComponent extends Component {
 
     constructor(props)
     {
         super(props);
         this.state = { 
-            teams: [],
             team: {}
         };
     }
 
     async componentDidMount() {
-        // Set the initial state for the teams and team
-        await getTeamsData().then(data => { 
-            this.setState({teams: data}); 
-            this.setState({team: getTeam(data, this.props.location.pathname)});
-        });
-    };
-
-    async componentDidUpdate() {
         // Get the team to display based on the teams and pathname
-        var team = getTeam(this.state.teams, this.props.location.pathname)
+        var team = getTeam(this.props.teams, this.props.location.pathname)
 
         // If the team has changed, update the state for the team and players
         if (this.state.team !== team) {
@@ -39,10 +31,20 @@ class TeamInfoPage extends Component {
         }
     };
 
-    getTeamInfo = (state) => {
+    async componentDidUpdate() {
+        // Get the team to display based on the teams and pathname
+        var team = getTeam(this.props.teams, this.props.location.pathname)
+
+        // If the team has changed, update the state for the team and players
+        if (this.state.team !== team) {
+            this.setState({team: team});
+        }
+    };
+
+    getTeamInfo = () => {
         // If this.state.team has been set
-        if (Object.keys(state.team).length !== 0) {
-            var team = state.team;
+        if (Object.keys(this.state.team).length !== 0) {
+            var team = this.state.team;
             // Return the team info section
             return(<>
                 <div className="col-3">
@@ -59,10 +61,11 @@ class TeamInfoPage extends Component {
                 </div>
             </>);
         }
+        return undefined;
     };
 
     render() {
-        if (this.getTeamInfo(this.state) === undefined) {
+        if (this.getTeamInfo() === undefined) {
             return (<div>
                 <div className="row" style={{height: "200px"}}></div>
                 <div className="row">
@@ -72,7 +75,7 @@ class TeamInfoPage extends Component {
         } else {
             return (<div style={{height: "100%", padding: "0px 0px 5% 0px"}}>
                         <div className="row" style={{padding:"5% 0% 0% 0%"}}>
-                            {this.getTeamInfo(this.state)}
+                            {this.getTeamInfo()}
                         </div>
                         <div className="row" style={{padding:"2.5% 2.5% 0% 2.5%"}}>
                             <TeamInfoTable team={this.state.team}/>
@@ -82,4 +85,5 @@ class TeamInfoPage extends Component {
     }
 }
 
+const TeamInfoPage = connect(mapStateToProps)(TeamInfoPageComponent);
 export default TeamInfoPage;

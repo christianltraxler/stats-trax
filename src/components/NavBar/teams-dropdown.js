@@ -2,31 +2,19 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import './index.css';
 
-import {
-    getTeamsData
-} from '../../functions';
+import { connect } from 'react-redux';
 
-class TeamsDropdown extends Component {
+const mapStateToProps = state => {
+    return { teams: state.teams };
+};
 
-    constructor(props)
-    {
-        super(props);
-        this.state={ 
-            teams: [] 
-        };
-    }
-
-    componentDidMount() {
-        getTeamsData().then(data => { 
-            this.setState({teams: data}); 
-        });
-    }
+class TeamsDropdownComponent extends Component {
 
     getDivisionTeams(nhlDivision)
     {
         var divisionTeams = [];
-        for (var index in this.state.teams) {
-            var team = this.state.teams[index];
+        for (var index in this.props.teams) {
+            var team = this.props.teams[index];
             if(team['division']['name'] === nhlDivision) {
                 divisionTeams.push(
                     <Link className="dropdown-item" href="/" key={team['id']} to={'/teams/' + team['abbreviation']}>
@@ -64,4 +52,5 @@ class TeamsDropdown extends Component {
     }
 }
 
+const TeamsDropdown = connect(mapStateToProps)(TeamsDropdownComponent);
 export default TeamsDropdown;

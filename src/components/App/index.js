@@ -15,7 +15,6 @@ import HockeyRink from '../HockeyRink/index.js';
 import * as ROUTES from '../../constants/routes';
  
 const App = () => (
-  
   <Router>
     <div>
       <HockeyRink>  

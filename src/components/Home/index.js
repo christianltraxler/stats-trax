@@ -3,42 +3,40 @@ import {Link} from 'react-router-dom';
 import "./index.css";
 
 import {
-    getPlayersDataByIds,
-    getTeamsData
+    getPlayersDataByIds
 } from '../../functions';
-
 import Spinner from '../Spinner';
+import { connect } from 'react-redux';
 
-class HomePage extends Component {
+const mapStateToProps = state => {
+    return { teams: state.teams };
+  };
+
+
+class HomePageComponent extends Component {
 
     constructor(props)
     {
         super(props);
-        this.state = { 
-            teams: {},
+        this.state = {
             players: {}
         };
     }
 
     componentDidMount() {
-        getTeamsData()
-            .then(data => { 
-            this.setState({teams: data}); 
-        });
         // Temoprary way to get the most popular players
         getPlayersDataByIds([8471214, 8471675, 8478402, 8479318, 8475166, 8474141, 8474564, 8471215, 8470638, 8473604, 8473419, 8477934, 8477956, 8477492, 8478550, 8478403, 8474600, 8476883, 8471695, 8476945])
             .then(data => { 
             this.setState({players: data}); 
         });
-
     }
 
     getTeams()
     {
         var teams = [];
         // Iterate through all the teams
-        for (var index in this.state.teams) {
-            var team = this.state.teams[index];
+        for (var index in this.props.teams) {
+            var team = this.props.teams[index];
             // Add each team to the list of Links
             teams.push(
                 <Link className="dropdown-item teams-list-link" href="/" key={team['id']} to={'/teams/' + team['abbreviation']}>
@@ -102,8 +100,10 @@ class HomePage extends Component {
 
                         </div>
                     </div>)}
-          }
-        
+          } 
 }
 
+
+
+const HomePage = connect(mapStateToProps)(HomePageComponent);
 export default HomePage;

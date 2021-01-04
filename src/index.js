@@ -1,13 +1,24 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers';
+import { fetchTeams } from './actions/index'
 import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 
+// use applyMiddleware to add the thunk middleware to the store
+const store = createStore(rootReducer, applyMiddleware(thunk));
+store.dispatch(fetchTeams());
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App/>
+    </Provider>,
   </React.StrictMode>,
   document.getElementById('root')
 );
