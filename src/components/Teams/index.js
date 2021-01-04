@@ -6,6 +6,7 @@ import './index.css';
 import {
     getTeamsData
 } from '../../functions';
+import Spinner from '../Spinner';
 
 class TeamsPage extends Component {
 
@@ -40,35 +41,44 @@ class TeamsPage extends Component {
     };
 
     render() {
-        return (
-            <div style={{padding:"5% 5%"}}>
-                <div className="row" >
-                    <p className="teams">Western Conference</p>
-                </div>
-                <div className="row" >
-                    <div className="col teams">
-                        <p className="teams">Pacific Division</p>
-                        {this.getDivisionTeams("Pacific")}
+        if (this.getDivisionTeams("Pacific").length === 0) {
+            return (<div style={{padding:"5% 5%"}}>
+                        <div className="row" style={{height: "200px"}}></div>
+                        <div className="row">
+                            <Spinner/>
+                        </div>
+                    </div>);
+        } else {
+            return (
+                <div style={{padding:"5% 5%"}}>
+                    <div className="row" >
+                        <p className="teams">Western Conference</p>
                     </div>
-                    <div className="col teams">
-                        <p className="teams">Central Division</p>
-                        {this.getDivisionTeams("Central")}
+                    <div className="row" >
+                        <div className="col teams">
+                            <p className="teams">Pacific Division</p>
+                            {this.getDivisionTeams("Pacific")}
+                        </div>
+                        <div className="col teams">
+                            <p className="teams">Central Division</p>
+                            {this.getDivisionTeams("Central")}
+                        </div>
                     </div>
-                </div>
-                <div className="row">
-                    <p className="teams">Eastern Conference</p>
-                </div>
-                <div className="row" >
-                    <div className="col teams">
-                        <p className="teams">Metropolitan Division</p>
-                        {this.getDivisionTeams("Metropolitan")}
+                    <div className="row">
+                        <p className="teams">Eastern Conference</p>
                     </div>
-                    <div className="col teams">
-                        <p className="teams">Atlantic Division</p>
-                        {this.getDivisionTeams("Atlantic")}
+                    <div className="row" >
+                        <div className="col teams">
+                            <p className="teams">Metropolitan Division</p>
+                            {this.getDivisionTeams("Metropolitan")}
+                        </div>
+                        <div className="col teams">
+                            <p className="teams">Atlantic Division</p>
+                            {this.getDivisionTeams("Atlantic")}
+                        </div>
                     </div>
-                </div>
-            </div>)
+                </div>);
+        }
     }
 }
 

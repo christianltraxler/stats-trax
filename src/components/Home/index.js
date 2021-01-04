@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import "./index.css"
+import "./index.css";
 
 import {
     getPlayersDataByIds,
     getTeamsData
 } from '../../functions';
+
+import Spinner from '../Spinner';
 
 class HomePage extends Component {
 
@@ -66,27 +68,42 @@ class HomePage extends Component {
     };
 
     render() {
-        return (<div style={{height: "100%"}}>
-                    <div className="row" style={{height: "175px"}}> 
-                        <h1 className="site-title"> Stats Trax </h1>
-                    </div>
-                    <div className="row">
-                        <hr className="solid" ></hr>
-                        <div className="col-3 left">
-                            {this.getTeams()}
+        if(this.getTeams().length === 0 || this.getPlayers().length === 0){
+            return (<div style={{height: "100%"}}>
+                        <div className="row" style={{height: "175px"}}> 
+                            <h1 className="site-title"> Stats Trax </h1>
                         </div>
-                        <div className="col-6">
+                        <div className="row" style={{height: "200px"}}>
+                            <hr className="solid" ></hr>
+                        </div>
+                        <div className="row">
+                            <Spinner/>
+                        </div>
+                    </div>);
+        } else {
+            return (<div style={{height: "100%"}}>
+                        <div className="row" style={{height: "175px"}}> 
+                            <h1 className="site-title"> Stats Trax </h1>
+                        </div>
+                        <div className="row">
+                            <hr className="solid" ></hr>
+                            <div className="col-3 left">
+                                {this.getTeams()}
+                            </div>
+                            <div className="col-6">
+
+                            </div>
+                            <div className="col-3 right">
+                                {this.getPlayers()}
+                            </div>
+                            <hr className="solid" ></hr>
+                        </div>
+                        <div className="row" style={{height: "150px"}}>
 
                         </div>
-                        <div className="col-3 right">
-                            {this.getPlayers()}
-                        </div>
-                        <hr className="solid" ></hr>
-                    </div>
-                    <div className="row" style={{height: "150px"}}>
-
-                    </div>
-                </div>)}
+                    </div>)}
+          }
+        
 }
 
 export default HomePage;

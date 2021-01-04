@@ -75,7 +75,7 @@ class TeamInfoTable extends Component {
             for (var year in this.props.team[type]) {
                 // Add each year to the array of years
                 years.push(<>
-                    <button className="dropdown-item text-center" onClick={e => this.setTeamInfoTable(e.target.value)} value={tableType + year}>{year.slice(0,4) + "-" + year.slice(4,8)}</button>
+                    <button className="dropdown-item text-center" onClick={e => this.setTeamInfoTable(e.target.value)} key={year} value={tableType + year}>{year.slice(0,4) + "-" + year.slice(4,8)}</button>
                 </>);
             }
             // Return years
@@ -124,7 +124,7 @@ class TeamInfoTable extends Component {
         }
     } 
 
-    getTeamInfoTable = (state) => {
+    getTeamInfoTable = () => {
         // If the tableType = R (roster table is chosen)
         if (this.state.tableType === "R") {
             return (<>
@@ -218,7 +218,7 @@ class TeamInfoTable extends Component {
                             </ul>
                         </div>
                     </nav>
-                    {this.getTeamInfoTable(this.state)}
+                    {this.getTeamInfoTable()}
                 </div>)
     }
 }

@@ -6,6 +6,7 @@ import "./index.css";
 import {
     getPlayersData
 } from '../../functions';
+import Spinner from '../Spinner';
 
 class PlayersPage extends Component {
 
@@ -87,53 +88,71 @@ class PlayersPage extends Component {
     }
 
     render() {
-        return (<div style={{height: "100%", padding:"2% 0px 2% 0px"}}>
-                    <div className="row" style={{height: "100px"}}> 
-                        <h1 className="players-title"> Player Directory </h1>
-                    </div>
-                    <div className="row" style={{padding:"0px 0px 25px 0px"}}>
-                        <hr className="solid" ></hr>
-                        <div className="col text-center" role="toolbar" aria-label="Letter Links Toolbar">
-                            {this.getLetterLinks()}
+        if (this.getPlayersTables(this.state, 0) === undefined) {
+            return (<div style={{padding:"2% 0px 2% 0px"}}>
+                        <div className="row" style={{height: "100px"}}> 
+                            <h1 className="players-title"> Player Directory </h1>
                         </div>
-                    </div>
-                    <div className="row" style={{minHeight: "800px"}}>
-                        <div className="col-3">
-                            <table className="table-sm table-dark table-hover center">
-                                <tbody>
-                                    {this.getPlayersTables(this.state, 0)}
-                                </tbody>
-                            </table>
+                        <div className="row" style={{padding:"0px 0px 25px 0px"}}>
+                            <hr className="solid" ></hr>
+                            <div className="col text-center" role="toolbar" aria-label="Letter Links Toolbar">
+                                {this.getLetterLinks()}
+                            </div>
                         </div>
-                        <div className="col-3 justify-center">
-                            <table className="table-sm table-dark table-hover center">
-                                <tbody>
-                                    {this.getPlayersTables(this.state, 1)}
-                                </tbody>
-                            </table>
+                        <div className="row" style={{height: "100px"}}></div>
+                        <div className="row">
+                            <Spinner/>
                         </div>
-                        <div className="col-3 justify-center">
-                            <table className="table-sm table-dark table-hover center">
-                                <tbody>
-                                    {this.getPlayersTables(this.state, 2)}
-                                </tbody>
-                            </table>
+                    </div>);
+        } else {
+            return (<div style={{padding:"2% 0px 2% 0px"}}>
+                        <div className="row" style={{height: "100px"}}> 
+                            <h1 className="players-title"> Player Directory </h1>
                         </div>
-                        <div className="col-3 justify-center">
-                            <table className="table-sm table-dark table-hover center">
-                                <tbody>
-                                    {this.getPlayersTables(this.state, 3)}
-                                </tbody>
-                            </table>
+                        <div className="row" style={{padding:"0px 0px 25px 0px"}}>
+                            <hr className="solid" ></hr>
+                            <div className="col text-center" role="toolbar" aria-label="Letter Links Toolbar">
+                                {this.getLetterLinks()}
+                            </div>
                         </div>
-                        
-                    </div>
-                    <div className="row" style={{padding:"25px 0px"}}>
-                        <div className="col text-center" role="toolbar" aria-label="Letter Links Toolbar">
-                            {this.getLetterLinks()}
+                        <div className="row" style={{minHeight: "800px"}}>
+                            <div className="col-3">
+                                <table className="table-sm table-dark table-hover center">
+                                    <tbody>
+                                        {this.getPlayersTables(this.state, 0)}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="col-3 justify-center">
+                                <table className="table-sm table-dark table-hover center">
+                                    <tbody>
+                                        {this.getPlayersTables(this.state, 1)}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="col-3 justify-center">
+                                <table className="table-sm table-dark table-hover center">
+                                    <tbody>
+                                        {this.getPlayersTables(this.state, 2)}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="col-3 justify-center">
+                                <table className="table-sm table-dark table-hover center">
+                                    <tbody>
+                                        {this.getPlayersTables(this.state, 3)}
+                                    </tbody>
+                                </table>
+                            </div>
+                            
                         </div>
-                    </div>
-                </div>)
+                        <div className="row" style={{padding:"25px 0px"}}>
+                            <div className="col text-center" role="toolbar" aria-label="Letter Links Toolbar">
+                                {this.getLetterLinks()}
+                            </div>
+                        </div>
+                    </div>)
+        }
     }
 }
 

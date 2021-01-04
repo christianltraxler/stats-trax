@@ -8,6 +8,7 @@ import {
 } from '../../functions';
 import './index.css';
 import TeamInfoTable from './TeamInfoTable';
+import Spinner from '../Spinner';
 
 class TeamInfoPage extends Component {
 
@@ -61,15 +62,24 @@ class TeamInfoPage extends Component {
     };
 
     render() {
-        return (<div style={{height: "100%", padding: "0px 0px 5% 0px"}}>
-                    <div className="row" style={{padding:"5% 0% 0% 0%"}}>
-                        {this.getTeamInfo(this.state)}
-                    </div>
-                    <div className="row" style={{padding:"2.5% 2.5% 0% 2.5%"}}>
-                        <TeamInfoTable team={this.state.team}/>
-                    </div>
-                </div>)
+        if (this.getTeamInfo(this.state) === undefined) {
+            return (<div>
+                <div className="row" style={{height: "200px"}}></div>
+                <div className="row">
+                    <Spinner/>
+                </div>
+            </div>);
+        } else {
+            return (<div style={{height: "100%", padding: "0px 0px 5% 0px"}}>
+                        <div className="row" style={{padding:"5% 0% 0% 0%"}}>
+                            {this.getTeamInfo(this.state)}
+                        </div>
+                        <div className="row" style={{padding:"2.5% 2.5% 0% 2.5%"}}>
+                            <TeamInfoTable team={this.state.team}/>
+                        </div>
+                    </div>);
         }
     }
+}
 
 export default TeamInfoPage;

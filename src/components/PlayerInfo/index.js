@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {
     getPlayerDataById
 } from '../../functions';
+import Spinner from '../Spinner';
 
 class PlayerInfoPage extends Component {
 
@@ -55,19 +56,30 @@ class PlayerInfoPage extends Component {
     };
 
     render() {
-        return (<div style={{height: "100%", padding: "0px 0px 5% 0px"}}>
-                    <div className="row" style={{padding:"5% 0% 0% 0%", margin:"0%"}}>{this.getPlayerInfo(this.state)}</div>
-                    <div className="row" style={{padding:"2.5% 2.5% 0% 2.5%", margin:"0%"}}>
-                        <table className="table-sm table-dark table-hover">
-                            <thead>
-                                <tr>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>)}
+        if (this.getPlayerInfo(this.state) === undefined) {
+            return (<div>
+                        <div className="row" style={{height: "200px"}}></div>
+                        <div className="row">
+                            <Spinner/>
+                        </div>
+                    </div>);
+        }
+        else {
+            return (<div style={{height: "100%", padding: "0px 0px 5% 0px"}}>
+                        <div className="row" style={{padding:"5% 0% 0% 0%", margin:"0%"}}>{this.getPlayerInfo(this.state)}</div>
+                        <div className="row" style={{padding:"2.5% 2.5% 0% 2.5%", margin:"0%"}}>
+                            <table className="table-sm table-dark table-hover">
+                                <thead>
+                                    <tr>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>)
+        }
+    }
 }
 
 export default PlayerInfoPage;
