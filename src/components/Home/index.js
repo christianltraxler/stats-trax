@@ -33,34 +33,28 @@ class HomePageComponent extends Component {
 
     getTeams()
     {
-        var teams = [];
         // Iterate through all the teams
-        for (var index in this.props.teams) {
+        var teams = Object.keys(this.props.teams).map(index => {
             var team = this.props.teams[index];
-            // Add each team to the list of Links
-            teams.push(
-                <Link className="dropdown-item teams-list-link" href="/" key={team['id']} to={'/teams/' + team['abbreviation']}>
-                    <img src={team['logo']['link']} alt={team['abbreviation']} style={{height: "100%"}}></img>
-                    {" " + team['name']}
-                </Link>)
-        }
+            return (<Link className="dropdown-item teams-list-link" href="/" key={team['id']} to={'/teams/' + team['abbreviation']}>
+                        <img src={team['logo']['link']} alt={team['abbreviation']} style={{height: "100%"}}></img>
+                        {" " + team['name']}
+                    </Link>)
+        });
         // Return the links
         return(teams);
     };
 
     getPlayers()
     {
-        var players = [];
         // Iterate through the players
-        for (var index in this.state.players) {
+        var players = Object.keys(this.state.players).map(index => {
             var player = this.state.players[index];
-            // Add the player to the list of Links
-            players.push(
-                <Link className="dropdown-item player-list-link" href="/" key={player['id']} to={'/players/' + player['id']} >
-                    <img src={player['picture']['link']} alt={player['id']} style={{height: "100%", borderRadius: "50%"}}></img>
-                    {" " + player['name']['fullName']}
-                </Link>)
-        }
+            return (<Link className="dropdown-item player-list-link" href="/" key={player['id']} to={'/players/' + player['id']} >
+                        <img src={player['picture']['link']} alt={player['id']} style={{height: "100%", borderRadius: "50%"}}></img>
+                        {" " + player['name']['fullName']}
+                    </Link>)
+        });
         // Return the links
         return(players);
     };

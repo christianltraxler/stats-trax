@@ -40,50 +40,47 @@ class PlayersPage extends Component {
     }
 
     getLetterLinks = () => {
-        var letterLinks = [];
         var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-        for (var letter in alphabet) {
-            letterLinks.push(<>
-                <input className={`btn btn-primary mr-2 ${this.state.isActive === alphabet[letter] ? "active" : ""}`} value={alphabet[letter]} id={alphabet[letter]} 
-                    onClick={e => this.updateActive(e.target.value)} type="Button"  readOnly={true}/>
+        var letterLinks = alphabet.map(letter => {
+            return(<>
+                <input className={`btn btn-primary mr-2 ${this.state.isActive === letter ? "active" : ""}`} 
+                        value={letter} id={letter} 
+                        onClick={e => this.updateActive(e.target.value)} 
+                        type="Button" readOnly={true}/>
             </>);
-        }
+        })
         return letterLinks;
     }
 
     getPlayersArray = () => {
         if (this.state.players !== undefined) {
-            var playersArray = [];
-            var players = this.state.players;
-            for (var index in this.state.players) {
-                    playersArray.push(<>
-                        <tr key={parseInt(players[index]['id'])}>
-                                <td className="text-center">{players[index]['jerseyNumber']}</td>
-                                <td>
-                                    <Link className="player-link" href="/" to={'/players/' + players[index]['id']}>
-                                        <img className="player-image" src={players[index]['picture']['link']} alt=""></img>
-                                        {players[index]['name']['fullName']} 
-                                    </Link>
-                                </td>
-                                <td className="text-center">{players[index]['primaryPosition']['abbreviation']}</td>
-                                <td className="text-center">{players[index]['shootsCatches']}</td>
-                            </tr>
-                    </>);
-            }
+            var playersArray = this.state.players.map(player => {
+                return (<tr key={parseInt(player['id'])}>
+                            <td className="text-center">{player['jerseyNumber']}</td>
+                            <td>
+                                <Link className="player-link" href="/" to={'/players/' + player['id']}>
+                                    <img className="player-image" src={player['picture']['link']} alt=""></img>
+                                    {player['name']['fullName']} 
+                                </Link>
+                            </td>
+                            <td className="text-center">{player['primaryPosition']['abbreviation']}</td>
+                            <td className="text-center">{player['shootsCatches']}</td>
+                        </tr>);
+            });
+            return(playersArray);
         }
-        return(playersArray);
     }
 
     getPlayersTables = (state, number) => {
         if (state.playersArray.length !== 0) {
-            var playersArray = state.playersArray;
-            var newArray = [];
-            for (var index in playersArray) {
+            var players = state.playersArray;
+            var playerArray = [];
+            for (var index in players) {
                 if (index % 4 === number) {
-                    newArray.push(playersArray[index]);
+                    playerArray.push(players[index]);
                 }
             }
-            return (newArray);
+            return (playerArray);
         }
     }
 

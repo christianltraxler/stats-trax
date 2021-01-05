@@ -31,9 +31,9 @@ class TeamInfoTable extends Component {
         }
     }
 
-    getTeamRosterTable = () => {
+    getTeamRosterTable = () => { 
         // If this.state.roster has been set
-        if (Object.keys(this.state.roster).length !== 0) {
+        if (this.state.roster !== undefined && Object.keys(this.state.roster).length !== 0) {
             var playerList = [];
             var players = this.state.roster.filter(player => player['id'] in this.props.team['roster'][this.state.tableSeason]);
             // Iterate through the players
@@ -56,9 +56,7 @@ class TeamInfoTable extends Component {
                 })
             // Return the array of jsx elements for the players info array 
             return playerList;
-        }   
-        // Return nothing if this.state.roster has not been set
-    return; 
+        }
     };
 
     getYears = (type) => {
@@ -69,14 +67,16 @@ class TeamInfoTable extends Component {
         // Continue if this.state.team is defined
         if (this.props.team !== undefined) {
             // Initialize years array (html buttons)
-            var years = []
-            // Cycle through the years 
-            for (var year in this.props.team[type]) {
-                // Add each year to the array of years
-                years.push(<>
-                    <button className="dropdown-item text-center" onClick={e => this.setTeamInfoTable(e.target.value)} key={year + parseInt(type.slice(0,1))} value={tableType + year}>{year.slice(0,4) + "-" + year.slice(4,8)}</button>
-                </>);
-            }
+            var years = Object.keys(this.props.team[type]).map(year => {
+                return (<>
+                            <button className="dropdown-item text-center" 
+                                    onClick={e => this.setTeamInfoTable(e.target.value)} 
+                                    key={year + parseInt(type.slice(0,1))} 
+                                    value={tableType + year}>
+                                {year.slice(0,4) + "-" + year.slice(4,8)}
+                            </button>
+                        </>)
+            });
             // Return years
             return years;
         }

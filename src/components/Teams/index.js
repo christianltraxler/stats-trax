@@ -12,24 +12,25 @@ const mapStateToProps = state => {
 
 class TeamsPageComponent extends Component {
 
-    getDivisionTeams(nhlDivision)
+    getDivisionTeams(division)
     {
-        var divisionTeams = [];
-        for (var index in this.props.teams) {
-            var team = this.props.teams[index];
-            if(team['division']['name'] === nhlDivision) {
-                divisionTeams.push(
-                    <Link className="dropdown-item teams-link" href="/" key={team['id']} to={'/teams/' + team['abbreviation']}>
-                        <img src={team['logo']['link']} alt={team['abbreviation']} style={{height: "20%", width:"20%"}}></img>
-                        {team['name']}
-                    </Link>)
-            }
+        if (this.props.teams !== undefined && Object.keys(this.props.teams).length !== 0) {
+            var divisionTeams = Object.values(this.props.teams).filter(team => {
+                return (team['division']['name'] === division)
+            })
+            var divisionTeamLinks = Object.keys(divisionTeams).map(index => {
+                var team = divisionTeams[index];
+                return (<Link className="dropdown-item teams-link" href="/" key={team['id']} to={'/teams/' + team['abbreviation']}>
+                            <img src={team['logo']['link']} alt={team['abbreviation']} style={{height: "20%", width:"20%"}}></img>
+                            {team['name']}
+                        </Link>)
+            });
         }
-        return(divisionTeams);
+        return(divisionTeamLinks);
     };
 
     render() {
-        if (this.getDivisionTeams("Pacific").length === 0) {
+        if (this.getDivisionTeams("Pacific") !== undefined && this.getDivisionTeams("Pacific").length === 0) {
             return (<div style={{padding:"5% 5%"}}>
                         <div className="row" style={{height: "200px"}}></div>
                         <div className="row">
