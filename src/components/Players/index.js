@@ -120,21 +120,21 @@ class PlayersPage extends Component {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="col-3 justify-center">
+                            <div className="col-3">
                                 <table className="table-sm table-dark table-hover center">
                                     <tbody>
                                         {this.getPlayersTables(this.state, 1)}
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="col-3 justify-center">
+                            <div className="col-3">
                                 <table className="table-sm table-dark table-hover center">
                                     <tbody>
                                         {this.getPlayersTables(this.state, 2)}
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="col-3 justify-center">
+                            <div className="col-3">
                                 <table className="table-sm table-dark table-hover center">
                                     <tbody>
                                         {this.getPlayersTables(this.state, 3)}

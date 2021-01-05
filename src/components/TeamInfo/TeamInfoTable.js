@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {
     getPlayersDataByIds
 } from '../../functions';
+import './TeamInfoTable.css'
 
 class TeamInfoTable extends Component {
 
@@ -31,33 +32,37 @@ class TeamInfoTable extends Component {
         }
     }
 
-    getTeamRosterTable = () => { 
+    getTeamRosterData = () => { 
         // If this.state.roster has been set
         if (this.state.roster !== undefined && Object.keys(this.state.roster).length !== 0) {
-            var playerList = [];
-            var players = this.state.roster.filter(player => player['id'] in this.props.team['roster'][this.state.tableSeason]);
-            // Iterate through the players
-            playerList = Object.keys(players).map(playerId => {
-                return (<>
-                            <tr key={parseInt(playerId)}>
-                                <td className="text-center">{players[playerId]['jerseyNumber']}</td>
-                                <td>
-                                    <Link href="/" key={this.props.team['id']} to={'/players/' + players[playerId]['id']}>
-                                        <img className="player-image" src={players[playerId]['picture']['link']} alt=""></img>
-                                        {players[playerId]['name']['fullName']} 
-                                    </Link>
-                                </td>
-                                <td className="text-center">{players[playerId]['primaryPosition']['abbreviation']}</td>
-                                <td className="text-center">{players[playerId]['shootsCatches']}</td>
-                                <td className="text-center">{players[playerId]['height']}</td>
-                                <td className="text-center">{players[playerId]['weight']}</td>
-                            </tr>
-                        </>);
-                })
-            // Return the array of jsx elements for the players info array 
-            return playerList;
+            console.log(this.state.roster)
+            var forwards = this.state.roster.filter(player => player['id'] in this.props.team['roster'][this.state.tableSeason] && player['primaryPosition']['type'] === "Forward");
+            var defense = this.state.roster.filter(player => player['id'] in this.props.team['roster'][this.state.tableSeason] && player['primaryPosition']['type'] === "Defenseman");
+            var goalies = this.state.roster.filter(player => player['id'] in this.props.team['roster'][this.state.tableSeason] && player['primaryPosition']['type'] === "Goalie");
+            var array = [this.getPlayerRow(forwards), this.getPlayerRow(defense), this.getPlayerRow(goalies)];
+            return(array)
         }
     };
+
+    getPlayerRow = (players) => {
+        return(Object.keys(players).map(playerId => {
+            return (<>
+                        <tr key={parseInt(playerId)}>
+                            <td className="text-center">{players[playerId]['jerseyNumber']}</td>
+                            <td>
+                                <Link href="/" key={this.props.team['id']} to={'/players/' + players[playerId]['id']}>
+                                    <img className="player-image" src={players[playerId]['picture']['link']} alt=""></img>
+                                    {players[playerId]['name']['fullName']} 
+                                </Link>
+                            </td>
+                            <td className="text-center">{players[playerId]['primaryPosition']['abbreviation']}</td>
+                            <td className="text-center">{players[playerId]['shootsCatches']}</td>
+                            <td className="text-center">{players[playerId]['height']}</td>
+                            <td className="text-center">{players[playerId]['weight']}</td>
+                        </tr>
+                    </>);
+            }))
+    }
 
     getYears = (type) => {
         // Get the table type based on the type specified
@@ -95,60 +100,81 @@ class TeamInfoTable extends Component {
         });
     }
 
-    getTeamStatsTable = (season) => {
+    getTeamStatsData = (season) => {
         // If this.props.team is defined
         if (this.props.team !== undefined) {
             var team = this.props.team['teamStats'][season]['numbers'];
-            return (<>
+            var teamStatsData = [team['gamesPlayed'], team['wins'],  team['losses'], team['ot'], team['pts'] + " (" + team['ptPctg'] + ")", team['goalsPerGame'], team['goalsAgainstPerGame'], team['evGGARatio'], 
+                                    team['powerPlayGoals'] + " (" + team['powerPlayPercentage'] + ")", team['powerPlayGoalsAgainst'] + " (" + team['penaltyKillPercentage'] + ")", 
+                                    team['shotsPerGame'], team['shotsAllowed'],  team['faceOffsWon'] + " (" + team['faceOffWinPercentage'] + ")", team['faceOffsTaken'], 
+                                    team['shootingPctg'], team['savePctg']].map(data => {
+                return (<td className="text-center">{data}</td>)
+            })
+            var winPctgData = [team['winScoreFirst'], team['winOppScoreFirst'], team['winLeadFirstPer'], team['winLeadSecondPer'], team['winOutshootOpp'], team['winOutshotByOpp']].map(data => {
+                return (<td className="text-center">{data}</td>)
+            })
+            return ([<>
                 <tr>
-                    <td className="text-center">{team['gamesPlayed']}</td>
-                    <td className="text-center">{team['wins']}</td>
-                    <td className="text-center">{team['losses']}</td>
-                    <td className="text-center">{team['ot']}</td>
-                    <td className="text-center">{team['pts'] + " (" + team['ptPctg'] + ")"}</td>
-                    <td className="text-center">{team['goalsPerGame']}</td>
-                    <td className="text-center">{team['goalsAgainstPerGame']}</td>
-                    <td className="text-center">{team['evGGARatio']}</td>
-                    <td className="text-center">{team['powerPlayGoals'] + " (" + team['powerPlayPercentage'] + ")"}</td>
-                    <td className="text-center">{team['powerPlayGoalsAgainst'] + " (" + team['penaltyKillPercentage'] + ")"}</td>
-                    <td className="text-center">{team['shotsPerGame']}</td>
-                    <td className="text-center">{team['shotsAllowed']}</td>
-                    <td className="text-center">{team['winScoreFirst']}</td>
-                    <td className="text-center">{team['winOppScoreFirst']}</td>
-                    <td className="text-center">{team['winLeadFirstPer']}</td>
-                    <td className="text-center">{team['winLeadSecondPer']}</td>
-                    <td className="text-center">{team['winOutshootOpp']}</td>
-                    <td className="text-center">{team['winOutshotByOpp']}</td>
-                    <td className="text-center">{team['faceOffsWon'] + " (" + team['faceOffWinPercentage'] + ")"}</td>
-                    <td className="text-center">{team['faceOffsTaken']}</td>
-                    <td className="text-center">{team['shootingPctg']}</td>
-                    <td className="text-center">{team['savePctg']}</td>
+                    {teamStatsData}
                 </tr>
-            </>);
+            </>,<>
+                <tr>
+                    {winPctgData}
+                </tr>
+            </>]);
         }
     } 
 
-    getTeamInfoTable = () => {
+    getTeamInfoTables = () => {
         // If the tableType = R (roster table is chosen)
         if (this.state.tableType === "R") {
-            return (<>
-                <table className="table-sm table-dark table-hover">
-                    <thead>
-                        <tr>
-                            <th className="text-center">Number</th>
-                            <th className="text-center">Name</th>
-                            <th className="text-center">Position</th>
-                            <th className="text-center">Shoots/Catches</th>
-                            <th className="text-center">Height</th>
-                            <th className="text-center">Weight</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.getTeamRosterTable()}
-                    </tbody>
-                </table>
-            </>);
-        
+            var teamRosterColumns = ['Number', 'Name', 'Position', 'Shoots/Catches', 'Height', 'Weight'].map(column => {
+                return (<th className="text-center">{column}</th>)
+            })
+            var rosterData = this.getTeamRosterData()
+            if (rosterData !== undefined) {
+                return (<>
+                    <div className="row">
+                        <div className="col-6">
+                            <p className="text-center">Forwards</p>
+                            <table className="table-sm table-dark table-hover center">
+                                <thead>
+                                    <tr>
+                                        {teamRosterColumns}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {rosterData[0]}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="col-6">
+                            <p className="text-center">Defensemen</p>
+                            <table className="table-sm table-dark table-hover center">
+                                <thead>
+                                    <tr>
+                                        {teamRosterColumns}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {rosterData[1]}
+                                </tbody>
+                            </table>
+                            <p className="text-center">Goalies</p>
+                            <table className="table-sm table-dark table-hover center">
+                                <thead>
+                                    <tr>
+                                        {teamRosterColumns}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {rosterData[2]}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </>);
+            }
         } 
         // If the tableType = S (schedule table is chosen)
         // Schedule info needs to be added to MongoDB + API
@@ -157,36 +183,33 @@ class TeamInfoTable extends Component {
         } 
         // If the tableType = T (team stats table is chosen)
         else if (this.state.tableType === "T") {
+            var teamStatsColumns = ['GP', 'W', 'L', 'OT', 'PTS (%)', 'GF/G', 'GA/G', 'evGRate', 'PP (%)', 'PK (%)', 'ShF/G', 'ShA/G', 'FOW (%)', '# FO', 'Sh%', 'Sv%'].map(column => {
+                return (<th className="text-center">{column}</th>)
+            })
+            var winPctgColumns = ['1stGF', '1stGA', 'Lead1st', 'Lead2nd', 'MoreShots', 'LessShots'].map(column => {
+                return (<th className="text-center">{column}</th>)
+            })
             return (<>
-                <table className="table-sm table-dark table-hover">
+                <p className="text-center">Team Stats</p>
+                <table className="table-sm table-dark table-hover center">
                     <thead>
                         <tr>
-                            <th className="text-center">GP</th>
-                            <th className="text-center">W</th>
-                            <th className="text-center">L</th>
-                            <th className="text-center">OT</th>
-                            <th className="text-center">PTS (%)</th>
-                            <th className="text-center">GF/G</th>
-                            <th className="text-center">GA/G</th>
-                            <th className="text-center">evGRate</th>
-                            <th className="text-center">PP (%)</th>
-                            <th className="text-center">PK (%)</th>
-                            <th className="text-center">ShF/G</th>
-                            <th className="text-center">ShA/G</th>
-                            <th className="text-center">W% 1stGF</th>
-                            <th className="text-center">W% 1stGA</th>
-                            <th className="text-center">W% Lead1st</th>
-                            <th className="text-center">W% Lead2nd</th>
-                            <th className="text-center">W% MoreShots</th>
-                            <th className="text-center">W% LessShots</th>
-                            <th className="text-center">FOW (%)</th>
-                            <th className="text-center">Total FO</th>
-                            <th className="text-center">Shot%</th>
-                            <th className="text-center">Save%</th>
+                            {teamStatsColumns}
                         </tr>
                     </thead>
                     <tbody>
-                        {this.getTeamStatsTable(this.state.tableSeason)}
+                        {this.getTeamStatsData(this.state.tableSeason)[0]}
+                    </tbody>
+                </table>
+                <p className="text-center">Win Percentage When:</p>
+                <table className="table-sm table-dark table-hover center">
+                    <thead>
+                        <tr>
+                            {winPctgColumns}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.getTeamStatsData(this.state.tableSeason)[1]}
                     </tbody>
                 </table>
             </>);
@@ -222,7 +245,7 @@ class TeamInfoTable extends Component {
                             </ul>
                         </div>
                     </nav>
-                    {this.getTeamInfoTable()}
+                    {this.getTeamInfoTables()}
                 </div>)
     }
 }

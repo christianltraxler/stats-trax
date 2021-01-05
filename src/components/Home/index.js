@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
 import "./index.css";
 
 import {
     getPlayersDataByIds
 } from '../../functions';
 import Spinner from '../Spinner';
-import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
     return { teams: state.teams };
