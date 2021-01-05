@@ -9,9 +9,7 @@ import TeamsPage from '../Teams';
 import PlayersPage from '../Players';
 import TeamInfoPage from '../TeamInfo';
 import PlayerInfoPage from '../PlayerInfo';
-
 import HockeyRink from '../HockeyRink/index.js';
- 
 import * as ROUTES from '../../constants/routes';
  
 const App = () => (

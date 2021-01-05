@@ -24,7 +24,6 @@ class TeamInfoPageComponent extends Component {
     async componentDidMount() {
         // Get the team to display based on the teams and pathname
         var team = getTeam(this.props.teams, this.props.location.pathname)
-
         // If the team has changed, update the state for the team and players
         if (this.state.team !== team) {
             this.setState({team: team});
@@ -34,7 +33,6 @@ class TeamInfoPageComponent extends Component {
     async componentDidUpdate() {
         // Get the team to display based on the teams and pathname
         var team = getTeam(this.props.teams, this.props.location.pathname)
-
         // If the team has changed, update the state for the team and players
         if (this.state.team !== team) {
             this.setState({team: team});
@@ -43,7 +41,7 @@ class TeamInfoPageComponent extends Component {
 
     getTeamInfo = () => {
         // If this.state.team has been set
-        if (Object.keys(this.state.team).length !== 0) {
+        if (this.state.team !== undefined && Object.keys(this.state.team).length !== 0) {
             var team = this.state.team;
             // Return the team info section
             return(<>

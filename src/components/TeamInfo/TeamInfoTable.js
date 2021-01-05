@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {
@@ -17,15 +16,16 @@ class TeamInfoTable extends Component {
         };
     }
 
-    componentDidUpdate = async () => {
+    componentDidMount = async () => {
         // If this.props.team is not undefined 
         if (Object.keys(this.props.team).length !== 0) {
             // Get the players in form of string (comma separated)
-            var rosterPlayerIds = [...Object.keys(this.props.team['roster'][this.state.tableSeason])].join();
-            // Get the roster data
-            await getPlayersDataByIds(rosterPlayerIds).then(data => {
+            var rosterPlayerIds = Object.keys(this.props.team['roster']).map(year => {
+                return ([...Object.keys(this.props.team['roster'][year])])
+            })
+            await getPlayersDataByIds(rosterPlayerIds.join()).then(data => {
                 if (this.state.roster !== data) {
-                    this.setState({ roster: data })
+                    this.setState({roster: data})
                 }
             });
         }
@@ -33,33 +33,32 @@ class TeamInfoTable extends Component {
 
     getTeamRosterTable = () => {
         // If this.state.roster has been set
-        if (this.state.roster !== undefined) {
+        if (Object.keys(this.state.roster).length !== 0) {
             var playerList = [];
-            var players = this.state.roster;
+            var players = this.state.roster.filter(player => player['id'] in this.props.team['roster'][this.state.tableSeason]);
             // Iterate through the players
-            for (var playerId in players) {
-                // Add the player info to the array
-                playerList.push(<>
-                    <tr key={parseInt(playerId)}>
-                        <td className="text-center">{players[playerId]['jerseyNumber']}</td>
-                        <td>
-                            <Link href="/" key={this.props.team['id']} to={'/players/' + players[playerId]['id']}>
-                                <img className="player-image" src={players[playerId]['picture']['link']} alt=""></img>
-                                {players[playerId]['name']['fullName']} 
-                            </Link>
-                        </td>
-                        <td className="text-center">{players[playerId]['primaryPosition']['abbreviation']}</td>
-                        <td className="text-center">{players[playerId]['shootsCatches']}</td>
-                        <td className="text-center">{players[playerId]['height']}</td>
-                        <td className="text-center">{players[playerId]['weight']}</td>
-                    </tr>
-                </>);
-            }
+            playerList = Object.keys(players).map(playerId => {
+                return (<>
+                            <tr key={parseInt(playerId)}>
+                                <td className="text-center">{players[playerId]['jerseyNumber']}</td>
+                                <td>
+                                    <Link href="/" key={this.props.team['id']} to={'/players/' + players[playerId]['id']}>
+                                        <img className="player-image" src={players[playerId]['picture']['link']} alt=""></img>
+                                        {players[playerId]['name']['fullName']} 
+                                    </Link>
+                                </td>
+                                <td className="text-center">{players[playerId]['primaryPosition']['abbreviation']}</td>
+                                <td className="text-center">{players[playerId]['shootsCatches']}</td>
+                                <td className="text-center">{players[playerId]['height']}</td>
+                                <td className="text-center">{players[playerId]['weight']}</td>
+                            </tr>
+                        </>);
+                })
             // Return the array of jsx elements for the players info array 
             return playerList;
         }   
-        // Return nothing if this.state.players has not been set
-        return; 
+        // Return nothing if this.state.roster has not been set
+    return; 
     };
 
     getYears = (type) => {
@@ -75,7 +74,7 @@ class TeamInfoTable extends Component {
             for (var year in this.props.team[type]) {
                 // Add each year to the array of years
                 years.push(<>
-                    <button className="dropdown-item text-center" onClick={e => this.setTeamInfoTable(e.target.value)} key={year} value={tableType + year}>{year.slice(0,4) + "-" + year.slice(4,8)}</button>
+                    <button className="dropdown-item text-center" onClick={e => this.setTeamInfoTable(e.target.value)} key={year + parseInt(type.slice(0,1))} value={tableType + year}>{year.slice(0,4) + "-" + year.slice(4,8)}</button>
                 </>);
             }
             // Return years
@@ -84,11 +83,16 @@ class TeamInfoTable extends Component {
     }
 
     setTeamInfoTable = (value) => {
-        // Based on the button clicked, set the tableType and tableSeason
-        this.setState({ 
-            tableType: value.slice(0,1),
-            tableSeason: value.slice(1,9)
-         });
+        // Get the players in form of string (comma separated)
+        var rosterPlayerIds = [...Object.keys(this.props.team['roster'][value.slice(1,9)])].join();
+        // Get the roster data
+        getPlayersDataByIds(rosterPlayerIds).then(data => {
+            this.setState({ 
+                roster: data,
+                tableType: value.slice(0,1),
+                tableSeason: value.slice(1,9) 
+            })
+        });
     }
 
     getTeamStatsTable = (season) => {

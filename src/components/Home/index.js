@@ -103,7 +103,5 @@ class HomePageComponent extends Component {
           } 
 }
 
-
-
 const HomePage = connect(mapStateToProps)(HomePageComponent);
 export default HomePage;
