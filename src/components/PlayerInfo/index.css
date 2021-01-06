@@ -1,0 +1,29 @@
+a.player img {
+    border-radius: 50%;
+    border: 3px solid white;
+    background: grey;
+    height: 100%;
+    width: 100%;
+}
+
+a.team img {
+    position: absolute;
+    right: -50px;
+    top: 60%;
+    height: 60%;
+    width: 60%;
+}
+
+a.country img {
+    position: absolute;
+    left: 0px;
+    top: 76%;
+    height: 35%;
+    width: 35%;
+}
+
+.image-container {
+    position: relative;
+    text-align: center;
+    color: white;
+  }

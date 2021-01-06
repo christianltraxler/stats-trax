@@ -35,7 +35,6 @@ class TeamInfoTable extends Component {
     getTeamRosterData = () => { 
         // If this.state.roster has been set
         if (this.state.roster !== undefined && Object.keys(this.state.roster).length !== 0) {
-            console.log(this.state.roster)
             var forwards = this.state.roster.filter(player => player['id'] in this.props.team['roster'][this.state.tableSeason] && player['primaryPosition']['type'] === "Forward");
             var defense = this.state.roster.filter(player => player['id'] in this.props.team['roster'][this.state.tableSeason] && player['primaryPosition']['type'] === "Defenseman");
             var goalies = this.state.roster.filter(player => player['id'] in this.props.team['roster'][this.state.tableSeason] && player['primaryPosition']['type'] === "Goalie");

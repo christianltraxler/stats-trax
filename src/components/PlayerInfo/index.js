@@ -4,6 +4,7 @@ import {
     getPlayerDataById
 } from '../../functions';
 import Spinner from '../Spinner';
+import './index.css'
 
 class PlayerInfoPage extends Component {
 
@@ -27,28 +28,26 @@ class PlayerInfoPage extends Component {
         if (Object.keys(state.player).length !== 0) {
             var player = state.player[0];
             // Return the team info section
+            var shootsCatches = "Shoots";
+            if (player['primaryPosition']['code'] === "G") {
+                shootsCatches = "Catches";
+            }
             return(<>
-                <div className="col-3" style={{height:"80%", width:"80%"}}>
-                    <a href="/"><img src={player['picture']['link']} alt={player['fullName']}/></a>
+                <div className="col-3" >
+                    <div className="image-container">
+                        <a className="player" href={"/players/" + player['id']}><img src={player['picture']['link']} alt={player['fullName']} style={{borderRadius: "50%"}}/></a>
+                        <a className="team" href={"/teams/" + player['currentTeam']['abbreviation']}><img src={"https://assets.nhle.com/logos/nhl/svg/" + player['currentTeam']['abbreviation'] + "_light.svg"} alt="TOR" style={{borderRadius: "50%"}}/></a>
+                        <a className="country" href="/"><img src={"https://api.nhle.com/images/country/48/" + player['info']['nationality'] + ".png"} alt={player['info']['nationality']}></img></a>
+                    </div>
                 </div>
-                <div className="col-5">
+                <div className="col-6">
                     <h2>{player['name']['fullName']}</h2>
                     <br></br>
                     <p> 
-                        {'Number: ' + player['primaryNumber']}<br/>
-                        {'Position: ' + player['primaryPosition']['type']}<br/>
-                        {'Team: ' + player['currentTeam']['name']}<br/>
-                        {'Shoots/Catches: ' + player['shootsCatches']}
-                    </p>
-                </div>
-                <div className="col-4">
-                <p> 
-                        {'Height: ' + player['height']}<br/>
-                        {'Weight: ' + player['weight']}<br/>
-                        {'Birthdate: ' + player['info']['birthDate']}<br/>
-                        {'Birth City: ' + player['info']['birthCity']}<br/>
-                        {'Nationality: ' + player['info']['nationality']}<br/>
-                        {'Shoots/Catches: ' + player['shootsCatches']}
+                        {'Number: ' + player['jerseyNumber']}<br/>
+                        {'Position: ' + player['primaryPosition']['code'] + ' • ' + shootsCatches + ': ' + player['shootsCatches']}<br/>
+                        {player['height'] + ', ' + player['weight'] + 'lbs'}<br/>
+                        {'Born: ' +  player['info']['birthDate'] + ' in ' + player['info']['birthCity'] + ', '+ player['info']['nationality']}<br/>
                     </p>
                 </div>
             </>);

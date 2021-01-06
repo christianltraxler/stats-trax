@@ -1,6 +1,6 @@
 p.teams {
     color:white;
-    font-size: 36px;
+    font-size: 30px;
 }
 
 div.row p.teams {
@@ -17,4 +17,12 @@ div.col p.teams {
 
 .dropdown-item.teams-link:hover {
     color: black;
+}
+
+hr.solid.teams-1 {
+    border-top: 4px solid white !important;
+}
+
+hr.solid.teams-2 {
+    border-top: 2px solid white !important;
 }

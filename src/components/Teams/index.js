@@ -39,30 +39,42 @@ class TeamsPageComponent extends Component {
                     </div>);
         } else {
             return (
-                <div style={{padding:"5% 5%"}}>
+                <div style={{padding:"5% 0px"}}>
+                        <div className="row" style={{height: "100px"}}> 
+                            <h1 className=""> Teams Directory </h1>
+                        </div>
+                        <div className="row" style={{padding:"0px 0px 25px 0px"}}>
+                            <hr className="solid" ></hr>
+                        </div>
                     <div className="row" >
-                        <p className="teams">Western Conference</p>
+                        <div className="col-6">
+                            <p className="teams">Western Conference</p>
+                            <hr className="solid teams-1" ></hr>
+                        </div>
+                        <div className="col-6">
+                            <p className="teams">Eastern Conference</p>
+                            <hr className="solid teams-1" ></hr>
+                        </div>
                     </div>
                     <div className="row" >
-                        <div className="col teams">
+                        <div className="col-3">
                             <p className="teams">Pacific Division</p>
+                            <hr className="solid teams-2" ></hr>
                             {this.getDivisionTeams("Pacific")}
                         </div>
-                        <div className="col teams">
+                        <div className="col-3">
                             <p className="teams">Central Division</p>
+                            <hr className="solid teams-2" ></hr>
                             {this.getDivisionTeams("Central")}
                         </div>
-                    </div>
-                    <div className="row">
-                        <p className="teams">Eastern Conference</p>
-                    </div>
-                    <div className="row" >
-                        <div className="col teams">
+                        <div className="col-3">
                             <p className="teams">Metropolitan Division</p>
+                            <hr className="solid teams-2" ></hr>
                             {this.getDivisionTeams("Metropolitan")}
                         </div>
-                        <div className="col teams">
+                        <div className="col-3">
                             <p className="teams">Atlantic Division</p>
+                            <hr className="solid teams-2" ></hr>
                             {this.getDivisionTeams("Atlantic")}
                         </div>
                     </div>
