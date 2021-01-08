@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import './index.css';
-import TeamsDropdown from "./teams-dropdown.js";
+import TeamsDropdown from "./TeamsDropdown.js";
 
 import * as ROUTES from '../../constants/routes';
 
@@ -23,6 +23,9 @@ render() {
                         </li>
                         <li className="nav-item active">
                             <Link className="nav-link" to={ROUTES.PLAYERS}>Players</Link>
+                        </li>
+                        <li className="nav-item active">
+                            <Link className="nav-link" to={ROUTES.GAMES}>Games</Link>
                         </li>
                     </ul>
                 </div>

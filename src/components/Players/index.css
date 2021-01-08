@@ -28,7 +28,7 @@ input.active.mr-2 {
 table.center {
     margin-left:auto; 
     margin-right:auto;
-  }
+}
 
 a.player-link {
     color: white;
@@ -40,4 +40,9 @@ a.player-link:hover {
 
 td {
     white-space: nowrap;
+}
+
+.image {
+    height: 50px;
+    width: 50px;
 }

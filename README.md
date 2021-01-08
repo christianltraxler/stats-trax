@@ -4,8 +4,7 @@ Stats Trax is a sports (currently only hockey) website built by Christian Traxle
 
 General TODOs:  
 Fix formatting for mobile  
-Fix website background design to account for longer pages  
-Add loading spinner for wait while page loads  
+Fix website background design to account for longer pages   
 Add mini popup on stat table columns to explain the meaning of each stat  
 
 ## Sections
@@ -13,36 +12,31 @@ Add mini popup on stat table columns to explain the meaning of each stat
 Standard welcome page for the website 
 
 TODO:  
-Add all teams in alphabetical list on left sidebar 
-Add popular(?) players on right sidebar  
+Replace old way of fetching popular players
 Add recent/upcoming games in middle  
 Add/create logo(?) for website  
 
 ### Teams
 [/teams](https://stats-trax.web.app/teams)  
-Broken down by Conference and Division, displays links to each teams site
+Broken down by Conference and Division, displays links to each teams site  
+
+[/teams/:abbreviation](https://stats-trax.web.app/teams/TOR)  
+Contains information about the team  
 
 TODO:  
-Fix formatting/design of conferences/division (looks bad)  
-Fix team link sizes (a bit tall + too wide)  
-
-[/teams/:abbreviation](https://stats-trax.web.app/teams/TOR)
-Contains information about the team
+Add team schedules 
 
 ### Players
 #### [/players](https://stats-trax.web.app/players)
 Directory of players broken down by first letter of last name. 
 
 TODO:   
-Add multiple pages for each letter (add player limit for single page)  
-Fix load time  
+(Not currently needed) Add multiple pages for each letter (add player limit for single page) 
 
 #### [/players/:id](https://stats-trax.web.app/players/8479318)
 Information about the player specified  
 
 TODO:   
-Fix player number (always undefined)  
-Fix formatting of basic player information at the top  
 Add more information about the player  
 Add player stats over the years  
 

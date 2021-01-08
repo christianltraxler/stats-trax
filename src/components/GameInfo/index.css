@@ -1,0 +1,21 @@
+h1 {
+  top: 50%;
+}
+
+.col-2 {
+  padding: 0px;
+}
+p {
+  padding: 0px;
+  margin: 0px;
+}
+
+button.nav-link {
+  background-color: #D64C4A;
+  border: none;
+  text-emphasis: black;
+}
+
+button.nav-link.active {
+  background-color: #4495EE;
+}

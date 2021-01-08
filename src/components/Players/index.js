@@ -1,4 +1,3 @@
-//import { data } from 'jquery';
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import "./index.css";
@@ -44,7 +43,7 @@ class PlayersPage extends Component {
         var letterLinks = alphabet.map(letter => {
             return(<>
                 <input className={`btn btn-primary mr-2 ${this.state.isActive === letter ? "active" : ""}`} 
-                        value={letter} id={letter} 
+                        key={letter.charCodeAt()} value={letter} id={letter} 
                         onClick={e => this.updateActive(e.target.value)} 
                         type="Button" readOnly={true}/>
             </>);
@@ -59,12 +58,16 @@ class PlayersPage extends Component {
                             <td className="text-center">{player['jerseyNumber']}</td>
                             <td>
                                 <Link className="player-link" href="/" to={'/players/' + player['id']}>
-                                    <img className="player-image" src={player['picture']['link']} alt=""></img>
+                                    <img className="image" src={player['picture']['link']} alt=""></img>
                                     {player['name']['fullName']} 
                                 </Link>
                             </td>
                             <td className="text-center">{player['primaryPosition']['abbreviation']}</td>
-                            <td className="text-center">{player['shootsCatches']}</td>
+                            <td>
+                                <Link href="/" to={'/teams/' + player['currentTeam']['abbreviation']}>
+                                    <img className="image" src={"https://assets.nhle.com/logos/nhl/svg/" + player['currentTeam']['abbreviation'] + "_light.svg"} alt={player['currentTeam']['abbreviation']}></img>
+                                </Link>
+                            </td>
                         </tr>);
             });
             return(playersArray);

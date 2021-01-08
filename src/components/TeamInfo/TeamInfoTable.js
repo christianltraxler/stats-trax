@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {
-    getPlayersDataByIds
-} from '../../functions';
+import { getPlayersDataByIds } from '../../functions';
 import './TeamInfoTable.css'
 
 class TeamInfoTable extends Component {

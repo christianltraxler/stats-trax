@@ -9,15 +9,27 @@ import { fetchTeams } from './actions/index'
 import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import { PersistGate } from 'redux-persist/integration/react'
 
-// use applyMiddleware to add the thunk middleware to the store
-const store = createStore(rootReducer, applyMiddleware(thunk));
+
+const persistedReducer = persistReducer({
+  key: 'root',
+  storage,
+}, rootReducer)
+
+const store = createStore(persistedReducer, applyMiddleware(thunk))
+const persistor = persistStore(store)
+
 store.dispatch(fetchTeams());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
       <App/>
+      </PersistGate>
     </Provider>,
   </React.StrictMode>,
   document.getElementById('root')
