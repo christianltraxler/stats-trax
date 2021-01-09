@@ -63,7 +63,8 @@ class TeamInfoPageComponent extends Component {
     };
 
     render() {
-        if (this.getTeamInfo() === undefined) {
+        var teamInfo = this.getTeamInfo()
+        if (teamInfo === undefined) {
             return (<div>
                 <div className="row" style={{height: "200px"}}></div>
                 <div className="row">
@@ -73,7 +74,7 @@ class TeamInfoPageComponent extends Component {
         } else {
             return (<div style={{height: "100%", padding: "0px 0px 5% 0px"}}>
                         <div className="row" style={{padding:"5% 0% 0% 0%"}}>
-                            {this.getTeamInfo()}
+                            {teamInfo}
                         </div>
                         <div className="row" style={{padding:"2.5% 2.5% 0% 2.5%"}}>
                             <TeamInfoTable team={this.state.team}/>

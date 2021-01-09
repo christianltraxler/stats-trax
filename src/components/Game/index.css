@@ -1,11 +1,12 @@
-h1 {
+h1.score {
   top: 50%;
 }
 
 .col-2 {
   padding: 0px;
 }
-p {
+
+p.game-info {
   padding: 0px;
   margin: 0px;
 }

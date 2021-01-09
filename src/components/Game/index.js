@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { getGamesData } from '../../functions'
 import Spinner from '../Spinner';
 import './index.css'
-import GameInfoTable from './GameInfoTable'
+import GameInfo from './GameInfo'
 
 const mapStateToProps = state => {
     return { teams: state.teams };
   };
 
-class GameInfoPageComponent extends Component {
+class GamePageComponent extends Component {
 
     constructor(props)
     {
@@ -54,29 +54,27 @@ class GameInfoPageComponent extends Component {
                             <a href={"/teams/" + awayTeam['abbreviation']}><img src={awayTeam['logo']['link']} alt={awayTeam['abbreviation']} /></a>
                             <p>{' '}</p><br/>
                             <h3 className="text-center">{awayTeam['name']}</h3>
-                            <p className="text-center">{awayRecord}</p>
+                            <p className="text-center game-info">{awayRecord}</p>
                         </div>
                         <div className="col-2">
                             <div style={{height: "90%"}}>
-                                <h1 style={{textAlign:"left"}}>{gameInfo['score']['away']}</h1>
-                                <h1 style={{textAlign:"center"}}>-</h1>
-                                <h1 style={{textAlign:"right"}}>{gameInfo['score']['home']}</h1>
+                                <h1 className="score" style={{textAlign:"left"}}>{gameInfo['score']['away']}</h1>
+                                <h1 className="score" style={{textAlign:"center"}}>-</h1>
+                                <h1 className="score" style={{textAlign:"right"}}>{gameInfo['score']['home']}</h1>
                             </div>
-                            <p className="text-center">Date: {formatDate}</p>
-                            <p className="text-center">Season: {gameInfo['season']}</p>
-                            <p className="text-center">Game Type: {gameInfo['gameType']}</p>
-                            <p className="text-center">Arena: {gameInfo['venue']['name']}</p>
+                            <p className="text-center game-info">Date: {formatDate}</p>
+                            <p className="text-center game-info">Season: {gameInfo['season']}</p>
+                            <p className="text-center game-info">Game Type: {gameInfo['gameType']}</p>
+                            <p className="text-center game-info">Arena: {gameInfo['venue']['name']}</p>
                         </div>
                         <div className="col-3">
                             <a href={"/teams/" + homeTeam['abbreviation']}><img src={homeTeam['logo']['link']} alt={homeTeam['abbreviation']} /></a>
                             <p>{' '}</p><br/>
                             <h3 className="text-center">{homeTeam['name']}</h3>
-                            <p className="text-center">{homeRecord}</p>
+                            <p className="text-center game-info">{homeRecord}</p>
                         </div>
                         <div className="col-2"/>
                     </div>
-                    
-                    
                 </div>
             </>);
         }
@@ -99,11 +97,11 @@ class GameInfoPageComponent extends Component {
                             {gameInfo}
                         </div>
                         <div className="row" style={{height: "150px"}}></div>
-                        <GameInfoTable gameInfo={this.state.gameInfo} gameData={this.state.gameData}/>
+                        <GameInfo gameInfo={this.state.gameInfo} gameData={this.state.gameData}/>
                     </div>)
         }
     }
 }
 
-const GameInfoPage = connect(mapStateToProps)(GameInfoPageComponent);
-export default GameInfoPage;
+const GamePage = connect(mapStateToProps)(GamePageComponent);
+export default GamePage;
